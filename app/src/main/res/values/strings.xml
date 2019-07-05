@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">AppTotem</string>
+    <string name="title_activity_navigation_drawer">Totem</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Ottieni informazioni</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="lista_approvatori">Approvatori</string>
+    <string name="tipo_richiesta">Elenco tipologie PFM</string>
+    <string name="richieste_già_inserite">PFM già inserite</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+    <string-array name="permessi">
+        <item>Ferie</item>
+        <item>Rol</item>
+        <item>ExFestivita</item>
+        <item>Malattia</item>
+        <item>Straordinario</item>
+        <item>Straordinario25%</item>
+        <item>Straordinario30%</item>
+        <item>Straordinario50%</item>
+        <item>DonazioneSangue</item>
+        <item>PermessoElettorale</item>
+        <item>PermessoLutto</item>
+        <item>PermessoNonRetribuito</item>
+        <item>CongedoMatrimoniale</item>
+        <item>MaternitaObbligatoria</item>
+        <item>MaternitaFacoltativa</item>
+        <item>PermessoRetribuito</item>
+        <item>PermessoStudio</item>
+        <item>Festivita</item>
+    </string-array>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

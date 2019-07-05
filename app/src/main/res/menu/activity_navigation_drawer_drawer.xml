@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+
+            android:id="@+id/recyclerView"
+            android:icon="@drawable/ic_o"
+            android:title="@string/lista_approvatori" />
+        <item
+            android:id="@+id/tipo_richiesta"
+            android:icon="@drawable/ic_two"
+            android:title="@string/tipo_richiesta" />
+        <item
+            android:id="@+id/richieste_già_inserite"
+            android:icon="@drawable/ic_three"
+            android:title="@string/richieste_già_inserite" />
+    </group>
+
+    <item android:title="Richieste da effettuare">
+        <menu>
+            <item android:id="@+id/effettua_richiesta_true"
+                android:icon="@drawable/ic_o"
+                android:title="Effettua richiesta per giornate" />
+            <item android:id="@+id/effettua_richiesta_false"
+                android:icon="@drawable/ic_two"
+                android:title="Effettua richiesta per ore" />
+        </menu>
+    </item>
+
+</menu>
