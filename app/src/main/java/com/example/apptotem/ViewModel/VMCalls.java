@@ -15,6 +15,7 @@ import com.example.apptotem.Model.PFMRequest;
 import com.example.apptotem.Model.PFMType;
 import com.example.apptotem.Model.RequestFormat;
 import com.example.apptotem.Model.UserData;
+import com.example.apptotem.R;
 import com.example.apptotem.Service.DoService;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class VMCalls extends ViewModel {
     //private MutableLiveData<UserData> userData= new MutableLiveData<>();
     private UserData userData;
     private String token;
-    private int id;
+    private int id, id2;
     private RequestFormat req;
 
             //MutableLiveData<UserData>
@@ -85,6 +86,13 @@ public class VMCalls extends ViewModel {
         req = new RequestFormat(k, f, m, id);
         DoService.permitRequestFalse(token, req, callback);
 
+    }
+
+    public void deleteAbsence(Context c, Callback<Void> callback, int id2) {
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(c);
+        token = pref.getString("token","");
+        DoService.deleteAbsence(token, callback, id2);
     }
 
 

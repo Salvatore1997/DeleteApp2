@@ -10,6 +10,7 @@ import com.example.apptotem.Model.UserData;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -48,5 +49,10 @@ public interface ServiceApi {
     @POST("/totem/api/permitRequest")
     Call<PFMRequest> permitRequestFalse(@Header("Authorization") String token,
                                         @Body RequestFormat request);
+
+    //cancellazione richieste PFM
+    @DELETE("/totem/api/permitRequest/{id}")
+    Call<Void> deleteAbsence(@Header("Authorization") String token,
+                                         @Path("id") int id);
 
 }

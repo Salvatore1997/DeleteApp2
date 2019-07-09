@@ -90,6 +90,13 @@ public class DoService {
         Call<PFMRequest> call = client.permitRequestFalse("Bearer "+ token, req);
         call.enqueue(callback);
     }
+
+    public static void deleteAbsence(String token, Callback<Void> callback, int id) {
+        Call<Void> call = client.deleteAbsence("Bearer "+ token, id);
+        call.enqueue(callback);
+    }
+
+
 }
 
 

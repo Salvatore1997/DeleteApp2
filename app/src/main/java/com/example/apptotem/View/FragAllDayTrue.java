@@ -213,7 +213,6 @@ public class FragAllDayTrue extends Fragment {
                 };
 
                 model.permitRequestTrue(getContext(), per, daDef, aDef, callback);
-
             }
         });
 
