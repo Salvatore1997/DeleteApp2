@@ -35,7 +35,6 @@ import retrofit2.Response;
 
 public class FragPFMInserite extends Fragment {
 
-    private TextView tv;
     private static VMCalls model;
     private static final String TAG = "FragPFMInserite";
     private MyAdapter3 myAdapter3;
@@ -44,14 +43,11 @@ public class FragPFMInserite extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
     private SimpleDateFormat outputFormat = new SimpleDateFormat( "dd-MMM-yyyy");
-    private ArrayList<String> output = new ArrayList<>();
     private Date date, date2;
     private String dat, dat2;
     private Button b;
     private static ArrayList<Integer> listaId = new ArrayList<>();
-    private static Context c;
-    private static String token;
-    private View.OnClickListener onItemClickListener;
+    private static ArrayList<String> listaStati = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,6 +89,7 @@ public class FragPFMInserite extends Fragment {
                           //elenco += "Da: " + response.body().get(i).getStartDate() + "\nA:  " + response.body().get(i).getEndDate() + " "+ response.body().get(i).getPermitType()+",\n ";
                             lista.add("Da:  " + dat + "\nA:    " + dat2 + "\nPer: " + response.body().get(i).getPermitType() + "\n");
                             listaId.add(response.body().get(i).getId());
+                            listaStati.add(response.body().get(i).getState());
 
                             Log.v(TAG, " " + i + " Lista id: " + listaId.get(i));
 
@@ -102,7 +99,7 @@ public class FragPFMInserite extends Fragment {
                         //}
                     }
 
-                    myAdapter3 = new MyAdapter3(lista, listaId, model, getContext());
+                    myAdapter3 = new MyAdapter3(lista, listaId, model, getContext(), listaStati);
                     rec3.setAdapter(myAdapter3);
                     rec3.getAdapter().notifyItemInserted(lista.size()-1);
                 } else {

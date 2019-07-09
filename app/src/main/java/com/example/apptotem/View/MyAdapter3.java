@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.apptotem.Model.PFMRequest;
 import com.example.apptotem.R;
 import com.example.apptotem.Service.DoService;
 import com.example.apptotem.ViewModel.VMCalls;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class MyAdapter3 extends RecyclerView.Adapter<MyAdapter3.MyViewHolder3> {
     private ArrayList<Integer> listaId = new ArrayList<>();
     private Callback<Void> callback;
     private Context c;
-    private int t;
+    private ArrayList<String> listaStati = new ArrayList<>();
 
     @NonNull
     @Override
@@ -70,14 +72,20 @@ public class MyAdapter3 extends RecyclerView.Adapter<MyAdapter3.MyViewHolder3> {
         };
 
         final Button b2 = holder.b;
+
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                model.deleteAbsence(c, callback, listaId.get(i));
-                lista.remove(i);
-                listaId.remove(i);
-                notifyItemRemoved(i);
-                notifyItemRangeChanged(i, getItemCount());
+                if (listaStati.get(i).equals("P")) {
+                    model.deleteAbsence(c, callback, listaId.get(i));
+                    lista.remove(i);
+                    listaId.remove(i);
+                    notifyItemRemoved(i);
+                    notifyItemRangeChanged(i, getItemCount());
+                } else {
+                    Toast.makeText(c, "Non è possibible cancellare questa richiesta!!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -99,8 +107,9 @@ public class MyAdapter3 extends RecyclerView.Adapter<MyAdapter3.MyViewHolder3> {
         }
     }
 
-    public MyAdapter3(ArrayList<String> lista, ArrayList<Integer> listaId, VMCalls model, Context c) {
+    public MyAdapter3(ArrayList<String> lista, ArrayList<Integer> listaId, VMCalls model, Context c, ArrayList<String> listaStati) {
         notifyItemInserted(lista.size()-1);
+        this.listaStati = listaStati;
         this.lista = lista;
         this.listaId = listaId;
         this.model = model;

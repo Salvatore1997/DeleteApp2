@@ -53,6 +53,6 @@ public interface ServiceApi {
     //cancellazione richieste PFM
     @DELETE("/totem/api/permitRequest/{id}")
     Call<Void> deleteAbsence(@Header("Authorization") String token,
-                                         @Path("id") int id);
+                             @Path("id") int id);
 
 }
