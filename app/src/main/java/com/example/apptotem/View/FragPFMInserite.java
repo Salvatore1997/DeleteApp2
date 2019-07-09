@@ -2,17 +2,21 @@ package com.example.apptotem.View;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.constraint.solver.LinearSystem;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.CollapsibleActionView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,8 +36,8 @@ import retrofit2.Response;
 public class FragPFMInserite extends Fragment {
 
     private TextView tv;
-    private VMCalls model;
-    private final String TAG = "FragPFMInserite";
+    private static VMCalls model;
+    private static final String TAG = "FragPFMInserite";
     private MyAdapter3 myAdapter3;
     private RecyclerView rec3;
     private ArrayList<String> lista = new ArrayList<>();
@@ -43,6 +47,11 @@ public class FragPFMInserite extends Fragment {
     private ArrayList<String> output = new ArrayList<>();
     private Date date, date2;
     private String dat, dat2;
+    private Button b;
+    private static ArrayList<Integer> listaId = new ArrayList<>();
+    private static Context c;
+    private static String token;
+    private View.OnClickListener onItemClickListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,9 +65,11 @@ public class FragPFMInserite extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getActivity().setTitle("PFM già inserite");
-        tv = getView().findViewById(R.id.textView3);
-        lista.add(0, "PFM inserite:\n");
-        rec3 = getActivity().findViewById(R.id.recyclerView3);
+        //tv = getView().findViewById(R.id.textView3);
+
+        model = ViewModelProviders.of(FragPFMInserite.this).get(VMCalls.class);
+        b = getView().findViewById(R.id.button70);
+
 
         Callback<List<PFMRequest>> callback = new Callback<List<PFMRequest>>() {
             @Override
@@ -79,19 +90,21 @@ public class FragPFMInserite extends Fragment {
 
                            }
 
-                        //elenco += "Da: " + response.body().get(i).getStartDate() + "\nA:  " + response.body().get(i).getEndDate() + " "+ response.body().get(i).getPermitType()+",\n ";
-                        lista.add("Da:  " + dat + "\nA:    " + dat2 + "\nPer: " + response.body().get(i).getPermitType() + "\n");
+                          //elenco += "Da: " + response.body().get(i).getStartDate() + "\nA:  " + response.body().get(i).getEndDate() + " "+ response.body().get(i).getPermitType()+",\n ";
+                            lista.add("Da:  " + dat + "\nA:    " + dat2 + "\nPer: " + response.body().get(i).getPermitType() + "\n");
+                            listaId.add(response.body().get(i).getId());
+
+                            Log.v(TAG, " " + i + " Lista id: " + listaId.get(i));
+
                             //output.add(String.format(response.body().get(i).getStartDate();
                         //} else {
                           //  elenco += "Da: " + response.body().get(i).getStartDate() + "    A: " + response.body().get(i).getEndDate() + " "+ response.body().get(i).getPermitType()+".";
                         //}
                     }
-                    Log.v(TAG, "Permit Request Success, code: "+ response.code() + " elenco richieste già inserite: " + elenco);
 
-
-                    myAdapter3 = new MyAdapter3(lista);
+                    myAdapter3 = new MyAdapter3(lista, listaId, model, getContext());
                     rec3.setAdapter(myAdapter3);
-                    rec3.getAdapter().notifyDataSetChanged();
+                    rec3.getAdapter().notifyItemInserted(lista.size()-1);
                 } else {
                     Log.v(TAG, "Permit Request Error_1, code: " + response.code());
                 }
@@ -103,7 +116,6 @@ public class FragPFMInserite extends Fragment {
             }
         };
 
-
         rec3 = getView().findViewById(R.id.recyclerView3);
         rec3.setHasFixedSize(true);
 
@@ -112,8 +124,10 @@ public class FragPFMInserite extends Fragment {
 
         rec3.addItemDecoration(new DividerItemDecoration(getActivity()));
 
-        model = ViewModelProviders.of(FragPFMInserite.this).get(VMCalls.class);
         model.permitRequest(getContext(), callback);
+
+
+
     }
 
 
